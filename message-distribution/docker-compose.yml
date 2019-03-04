@@ -1,0 +1,18 @@
+version: '3'
+services:
+  rabbit:
+    image: "rabbitmq"
+    ports: 
+     - "5672:5672"  
+  consumer:
+    build: 
+      context: .
+      dockerfile: consumerDockerfile
+    depends_on: 
+     - rabbit
+  producer:
+    build: 
+      context: .
+      dockerfile: producerDockerfile
+    depends_on: 
+     - rabbit

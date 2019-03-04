@@ -1,0 +1,8 @@
+FROM python:3.8.0a2-alpine3.9
+RUN apk add --update bash
+WORKDIR /code
+ADD send.py /code
+ADD requirements.txt /code
+ADD wait-for-it.sh /code
+RUN pip install -r /code/requirements.txt
+CMD ["/code/wait-for-it.sh", "rabbit:5672", "--", "python", "-u", "/code/send.py"]
